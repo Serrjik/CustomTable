@@ -1,11 +1,8 @@
 {
-  "name": "react",
+  "name": "react-customtable",
   "version": "1.0.0",
-  "description": "React example starter project",
-  "keywords": [
-    "react",
-    "starter"
-  ],
+  "description": "Компонент CustomTable, отображающий в таблице данные, передаваемые атрибутом data. Поля настраиваются массивом атрибута fields.",
+  "keywords": [],
   "main": "src/index.js",
   "dependencies": {
     "react": "16.12.0",

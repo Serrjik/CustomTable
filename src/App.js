@@ -1,6 +1,6 @@
 import React from "react";
 
-import CustomTable from "./Components/CustomTable";
+import CustomTable from "./Components/CustomTable.jsx";
 
 function App() {
   const users = [
