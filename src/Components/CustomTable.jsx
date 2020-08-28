@@ -1,32 +1,40 @@
 import React from "react";
+import HeaderCell from "./HeaderCell";
+import Cell from "./Cell";
 
-function CustomTable ({ data, fields }) {
-  // data.forEach(user => console.log(user))
-  // console.log(data)
-  // console.log(fields)
+function CustomTable({ data, fields }) {
+  const headerCells = fields.map((field) => (
+    <HeaderCell 
+      text={typeof field === "string" ? field : field.label} 
+      key={typeof field === "string" ? field : field.label} 
+    />
+  ));
 
-  let head = ''
+  const tableBody = [];
 
-  for (const field of fields) {
-    if (typeof(field) === 'string') {
-      head += `<th>${field}</th>`
-    }
+  for (const dataItem of data) {
+    const tableRow = fields.map(field => {
+			const text = typeof(field) === "string"
+			? dataItem[field]
+      : field.value(dataItem)
 
-    else {
-      head += `<th>${field.label}</th>`
-    }
+      return <Cell text={text} key={text} />;
+    });
+
+    tableRow.key = dataItem.id
+    tableBody.push(<tr>{tableRow}</tr>);
   }
-
-  console.log(head)
   
   return (
     <table>
-      <tr>
-        {/* { 1 === 1 ? <th>Hello</th> : '<th>Good by</th>' } */}
-        {head}
-      </tr>
+      <thead>
+        <tr>{headerCells}</tr>
+      </thead>
+      <tbody>
+        {tableBody}
+      </tbody>
     </table>
-  )
+  );
 }
 
-export default CustomTable
+export default CustomTable;
