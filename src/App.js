@@ -31,6 +31,10 @@ function App() {
       value: (item) => `${item.name} ${item.surname}`
     },
     {
+      label: "Возраст",
+      value: "age"
+    },
+    {
       label: "Is adult",
       value: (item) => (item.age >= 18 ? "Да" : "Нет")
     }

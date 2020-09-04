@@ -3,22 +3,38 @@ import HeaderCell from "./HeaderCell";
 import Cell from "./Cell";
 
 function CustomTable({ data, fields }) {
-  const headerCells = fields.map((field) => (
+  const headerCells = fields.map((field, index) => (
     <HeaderCell 
       text={typeof field === "string" ? field : field.label} 
-      key={typeof field === "string" ? field : field.label} 
+      key={index}
     />
   ));
 
   const tableBody = [];
 
   for (const dataItem of data) {
-    const tableRow = fields.map(field => {
-			const text = typeof(field) === "string"
-			? dataItem[field]
-      : field.value(dataItem)
+    const tableRow = fields.map((field, index) => {
+      let text = null
 
-      return <Cell text={text} key={text} />;
+      if (typeof(field) === 'string') {
+        text = dataItem[field]
+      }
+
+      else if (typeof(field) === 'object') {
+        if (typeof(field.value) === 'function') {
+          text = field.value(dataItem)
+        }
+
+        else if (typeof(field.value) === 'string') {
+          text = dataItem[field.value]
+        }
+
+        else {
+          text = ''
+        }
+      }
+
+      return <Cell text={text} key={index} />;
     });
 
     tableRow.key = dataItem.id
